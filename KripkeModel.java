@@ -236,7 +236,7 @@ public class KripkeModel implements Model{
     }
 
     copy(temp, rset);
-    display(rset);
+    //display(rset);
     return;
   }
 
@@ -270,12 +270,26 @@ public class KripkeModel implements Model{
 
     //step 2.
     boolean change = true;
-    while(false){
-      for(int i = 0; i < numberOfStates; i++){
+    while(change){
+      change = false;
 
+      for(int i = 0; i < numberOfStates; i++){
+        if(sset1.contains(i)){ //state is labeled with t1
+          ArrayList<Integer> outEdges = NodeMap.get(i);
+          int outSize = outEdges.size();
+          for(int j = 0; j < outSize; j++){
+            int d = outEdges.get(j);
+            if(temp.contains(d) && !temp.contains(i)){
+              temp.AddState(i);
+              change = true;
+              //System.out.println("TRUE");
+            }
+          }
+        }
       }
     }
-
+    copy(temp, rset);
+    display(rset);
 
     return;
   }
