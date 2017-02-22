@@ -1,0 +1,192 @@
+
+# $Id: long_example.txt 2438 2017-02-02 21:48:11Z asminer $
+
+#
+# New model:
+#
+#
+#               S0
+#                 |
+#               ^ |
+#               | v
+#               |
+#       +-------S1 ----------+
+#       |        |           |
+#       |        |           |
+#       v        v           v
+#
+#      S2       S6 <--+     S10 
+#       |         |   |      |
+#       |       ^ |   |      |
+#       v       | v   |      v
+#  +-->         |     |
+#  +---S3       S7    |     S11 
+#       |        |    |      |
+#       |        |    |      |
+#       v        v    |      v
+#                     |
+#      S4       S8    |     S12 --+
+#       |         |   |      ^    |
+#       |       ^ |   |      |    |
+#       v       | v   |      +----+
+#               |     | 
+#      S5 --+   S9 ---+ 
+#       ^   |           
+#       |   |
+#       +---+          
+#
+#
+
+KRIPKE
+
+STATES 13
+
+ARCS
+
+  S0 -> S1;
+  S1 -> S2;   S1-> S6;    S1->S10;
+
+  S2 -> S3;
+  S3 -> S3;   S3 -> S4;
+  S4 -> S5;
+  S5 -> S5;
+
+  S6 -> S7;
+  S7 -> S6;   S7 -> S8;
+  S8 -> S9;
+  S9 -> S8;   S9 -> S6;
+
+  S10-> S11;
+  S11-> S12;
+  S12->S12;
+
+LABELS
+
+  a : S0;
+  b : S1;
+  c : S2;
+  d : S6;
+  e1 : S10;
+  e2 : S11;
+  e3 : S12;
+  f : S3;
+  g : S4;
+  h : S5;
+  i : S7;
+  j : S8;
+  k : S9;
+
+  ff : ;
+
+CTL
+  tt := ! ff;
+
+#
+# EX tests
+#
+
+  prop1 := EX d;
+  prop2 := EX EX d;
+  prop3 := EX EX EX d;
+  prop4 := EX h;
+  prop5 := ! (EX tt);
+
+  [[prop1]];  # Should be {S1, S7, S9}
+  [[prop2]];  # Should be {S0, S6, S8}
+  [[prop3]];  # Should be {S1, S7, S9}
+  [[prop4]];  # Should be {S4, S5}
+  [[prop5]];  # Should be { }
+
+
+#
+# EF tests
+#
+
+  prop6 := EF d;
+  prop7 := EF h;
+  prop8 := EF e3;
+  prop9 := ! (prop6 | prop7 | prop8);
+
+  [[prop6]];  # Should be {S0, S1, S6, S7, S8, S9 }
+  [[prop7]];  # Should be {S0, S1, S2, S3, S4, S5 }
+  [[prop8]];  # Should be {S0, S1, S10, S11, S12 }
+  [[prop9]];  # Should be {}
+
+
+#
+# EU tests
+#
+
+  prop10 := E !j U d;
+  prop11 := E !prop8 U h;
+
+  [[ prop10 ]]; # Should be {S0, S1, S6, S7, S9 }
+  [[ prop11 ]]; # Should be {S2, S3, S4, S5 }
+
+
+#
+# EG tests
+#
+
+  prop12 := EG prop10;
+  prop13 := EG EF d;
+  prop14 := EG EF e3;
+  prop15 := EG !h;
+  prop16 := EG EF h;
+
+  [[ prop12 ]]; # Should be {S0, S1, S6, S7, S9 }
+  [[ prop13 ]]; # Should be {S0, S1, S6, S7, S8, S9 }
+  [[ prop14 ]]; # Should be {S0, S1, S10, S11, S12}
+  [[ prop15 ]]; # Should be {S0, S1, S2, S3, S6, S7, S8, S9, S10, S11, S12}
+  [[ prop16 ]]; # Should be {S0, S1, S2, S3, S4, S5}
+
+# 
+# AX tests
+#
+
+  prop20 := AX h;
+  prop21 := AX AX h;
+  prop22 := !AX !j;
+
+  [[ prop20 ]]; # Should be {S4, S5}
+  [[ prop21 ]]; # Should be {S4, S5}
+  [[ prop22 ]]; # Should be {S7, S9}
+
+#
+# AF tests
+#
+
+  prop23 := AF h;
+  prop24 := AF d;
+  prop25 := AF e3;
+
+  [[ prop23 ]]; # Should be {S4, S5}
+  [[ prop24 ]]; # Should be {S6}
+  [[ prop25 ]]; # Should be {S10, S11, S12}
+
+#
+# AU tests
+#
+
+  prop26 := !A !j U (h | d | e3);
+  prop27 := A !j U d;
+  prop28 := A !b U h;
+
+  [[ prop26 ]]; # Should be {S0, S1, S2, S3, S7, S8, S9}
+  [[ prop27 ]]; # Should be {S6}
+  [[ prop28 ]]; # Should be {S4, S5}
+
+# 
+# AG tests
+#
+
+  prop30 := AG !h;
+  prop31 := AG !j;
+  prop32 := AG !e3;
+  prop33 := AG tt;
+
+  [[ prop30 ]]; # Should be {S6, S7, S8, S9, S10, S11, S12}
+  [[ prop31 ]]; # Should be {S2, S3, S4, S5, S10, S11, S12}
+  [[ prop32 ]]; # Should be {S2, S3, S4, S5, S6, S7, S8, S9}
+  [[ prop33 ]]; # Should be {S0, ..., S12}
+

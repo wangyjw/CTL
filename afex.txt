@@ -1,0 +1,28 @@
+
+# 
+# Example 4.6 from the lecture notes
+#
+
+KRIPKE
+
+STATES 7
+
+ARCS
+
+  S0 -> S1;   
+  S1 -> S0;   S1 -> S2;   S1 -> S4;
+  S2 -> S3;   S2 -> S5; 
+  S3 -> S3;
+  S4 -> S4;   S4 -> S5;
+  S5 -> S6;
+  S6 -> S6;
+
+LABELS
+
+  p: S3, S6;
+
+CTL
+
+  afp := AF p;
+
+  [[afp]];
