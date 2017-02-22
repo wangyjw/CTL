@@ -230,7 +230,21 @@ public class KripkeModel implements Model{
   }
 
   public void AG(StateSet sset, StateSet rset){
-    //TODO
+    // !EF t == AG !t
+    StateSet temp = new StateSetTest();
+    temp.clear();
+    StateSet temp1 = new StateSetTest();
+    temp1.clear();
+    StateSet temp2 = new StateSetTest();
+    temp2.clear();
+
+    NOT(sset, temp); // !t
+    EF(temp, temp1);
+    NOT(temp1, temp2);
+
+    copy(temp2, rset);
+
+
     return;
   }
 
