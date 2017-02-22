@@ -270,7 +270,28 @@ public class KripkeModel implements Model{
 
   public void OR(StateSet sset1, StateSet sset2, StateSet rset)
   {
-    //TODO
+    StateSet temp = new StateSetTest();
+    temp.clear();
+
+    ArrayList<Integer> p = sset1.getStateSet();
+    ArrayList<Integer> q = sset2.getStateSet();
+
+    for(int i = 0; i < p.size(); i++){
+      int state = p.get(i);
+      if(!temp.contains(state)) {
+        temp.AddState(state);
+      }
+    }
+
+    for(int j = 0; j < q.size(); j++){
+      int state = q.get(j);
+      if(!temp.contains(state)) {
+        temp.AddState(state);
+      }
+    }
+
+    copy(temp, rset);
+
     return;
   }
 
@@ -324,7 +345,22 @@ public class KripkeModel implements Model{
 
   public void AU(StateSet sset1, StateSet sset2, StateSet rset)
   {
-    //TODO
+    //t == A t1 U t2
+    // !A t1 U t2 == EG !t2
+    StateSet temp = new StateSetTest();
+    temp.clear();
+    StateSet temp1 = new StateSetTest();
+    temp1.clear();
+    StateSet temp2 = new StateSetTest();
+    temp2.clear();
+
+    //temp = !t2
+    NOT(sset2, temp);
+    EG(temp, temp1);
+    NOT(temp1, temp2);
+
+    copy(temp2, rset);
+
     return;
   }
 
