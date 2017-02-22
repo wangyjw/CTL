@@ -222,7 +222,21 @@ public class KripkeModel implements Model{
 
   public void AND(StateSet sset1, StateSet sset2, StateSet rset)
   {
-    //TODO
+    StateSet temp = new StateSetTest();
+    temp.clear();
+
+    ArrayList<Integer>set1States = sset1.getStateSet();
+    //ArrayList<Integer>set2States = sset2.getStateSet();
+
+    for(int i = 0; i < set1States.size(); i++){
+      int state = set1States.get(i);
+      if(sset2.contains(state)){
+        temp.AddState(state);
+      }
+    }
+
+    copy(temp, rset);
+    display(rset);
     return;
   }
 
@@ -240,10 +254,29 @@ public class KripkeModel implements Model{
 
   public void EU(StateSet sset1, StateSet sset2, StateSet rset)
   {
+    //t == E t1 U t2
     //1. Any state labeled with t2 is labeled with t
-    //2. if state s is labeled ith t1 and some sucessors of s is labeled with t then label s with 2
+    //2. if state s is labeled with t1 and some sucessors of s is labeled with t then label s with t
     //3. Repeat untill no changes are possible
-    
+    StateSet temp = new StateSetTest(); // may need to simplify this
+    temp.clear();
+
+    ArrayList<Integer> t2 = sset2.getStateSet();
+    int size = t2.size();
+    //Step 1.
+    for(int i = 0; i < size; i++){
+      temp.AddState(t2.get(i));
+    }
+
+    //step 2.
+    boolean change = true;
+    while(false){
+      for(int i = 0; i < numberOfStates; i++){
+
+      }
+    }
+
+
     return;
   }
 
