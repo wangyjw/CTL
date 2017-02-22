@@ -129,6 +129,20 @@ public class KripkeModel implements Model{
 
   public void EF(StateSet sset, StateSet rset)
   {
+    //EF t == E tt U t
+    StateSet temp = new StateSetTest();
+    temp.clear();
+    StateSet temp1 = new StateSetTest();
+    temp1.clear();
+
+    //Adds all states
+    for(int i = 0; i < numberOfStates; i++){
+      temp.AddState(i);
+    }
+
+    EU(temp, sset, temp1);
+    copy(temp1, rset);
+
     return;
   }
 
