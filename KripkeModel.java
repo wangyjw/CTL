@@ -297,7 +297,18 @@ public class KripkeModel implements Model{
 
   public void IMPLIES(StateSet sset1, StateSet sset2, StateSet rset)
   {
-    //TODO
+    StateSet temp = new StateSetTest();
+    temp.clear();
+
+    for(int i = 0; i < numberOfStates; i++){
+      if(!sset1.contains(i)){
+        temp.AddState(i);
+      }
+      else if(sset1.contains(i) && sset2.contains(i)){
+        temp.AddState(i);
+      }
+    }
+
     return;
   }
 
