@@ -177,6 +177,9 @@ public class KripkeModel implements Model{
         if(sset.contains(outEdge.get(j))){
           test++;
         }
+        else{
+          break;
+        }
       }
       if(outEdge.size() == test){
         temp.AddState(i);
@@ -188,7 +191,7 @@ public class KripkeModel implements Model{
     //temp.print();
     copy(temp, rset);
     //sset.print();
-    rset.print();
+    //rset.print();
     return;
   }
 
@@ -212,6 +215,9 @@ public class KripkeModel implements Model{
         for(int j = 0; j < size; j++){
           if(temp.contains(outEdge.get(j))){
             test++;
+          }
+          else{
+            break;
           }
         }
         if(test == size){ //all sucessors are marked
@@ -349,7 +355,7 @@ public class KripkeModel implements Model{
       }
     }
     copy(temp, rset);
-    display(rset);
+    //display(rset);
 
     return;
   }
