@@ -12,14 +12,14 @@ public class KripkeModel implements Model{
   public int numberOfStates;
   //ipmlemnt hashmap
   public KripkeModel(){
-    System.out.println("New Model!");
+    //System.out.println("New Model!");
     NodeMap = new HashMap<Integer, ArrayList<Integer>>();
   }
 
 
   public boolean finish()
   {
-    System.out.println("Finish Called");
+    //System.out.println("Finish Called");
     //System.out.println(NodeMap.get(3));
     return true;
   }
@@ -215,7 +215,7 @@ public class KripkeModel implements Model{
           }
         }
         if(test == size){ //all sucessors are marked
-          System.out.println(i);
+          //System.out.println(i);
           if(!temp.contains(i)){
             temp.AddState(i);
             change = true;
