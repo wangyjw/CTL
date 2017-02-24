@@ -200,7 +200,7 @@ public class KripkeModel implements Model{
     //2. If all successsors of state s are labbled with t then label s with t
     //3. Repeat 2 intill no changes are possible
 
-    StateSet temp = new StateSetTest(); // may need to simplify this
+    StateSet temp = new StateSetTest();
     temp.clear();
     //1.)
     copy(sset, temp);
@@ -212,12 +212,14 @@ public class KripkeModel implements Model{
         ArrayList<Integer> outEdge = NodeMap.get(i);
         int size = outEdge.size();
         int test = 0;
-        for(int j = 0; j < size; j++){
-          if(temp.contains(outEdge.get(j))){
-            test++;
-          }
-          else{
-            break;
+        if(!temp.contains(i)){
+          for(int j = 0; j < size; j++){
+            if(temp.contains(outEdge.get(j))){
+              test++;
+            }
+            else{
+              break;
+            }
           }
         }
         if(test == size){ //all sucessors are marked
