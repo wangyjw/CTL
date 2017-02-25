@@ -221,15 +221,19 @@ public class KripkeModel implements Model{
               break;
             }
           }
+          if(test == size){
+            temp.AddState(i);
+            change = true;
+          }
         }
-        if(test == size){ //all sucessors are marked
+/*        if(test == size){ //all sucessors are marked
           //System.out.println(i);
           if(!temp.contains(i)){
             temp.AddState(i);
             change = true;
             //System.out.println(i);
           }
-        }
+        } */
       }
       //change = false;
     }
@@ -350,6 +354,7 @@ public class KripkeModel implements Model{
             if(temp.contains(d) && !temp.contains(i)){
               temp.AddState(i);
               change = true;
+              break;
               //System.out.println("TRUE");
             }
           }
