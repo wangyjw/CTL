@@ -115,6 +115,7 @@ public class KripkeModel implements Model{
       for(int j = 0; j < outEdge.size(); j++){
         if(sset.contains(outEdge.get(j))){
           temp.AddState(i);
+          break;
         }
       }
 
