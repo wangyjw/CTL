@@ -378,13 +378,29 @@ public class KripkeModel implements Model{
     temp1.clear();
     StateSet temp2 = new StateSetTest();
     temp2.clear();
+    StateSet temp3 = new StateSetTest();
+    StateSet temp4 = new StateSetTest();
 
-    //temp = !t2
+
+    //temp1 = EG !t2
     NOT(sset2, temp);
     EG(temp, temp1);
-    NOT(temp1, temp2);
 
-    copy(temp2, rset);
+    //t1 and !t2
+    NOT(sset2, temp4);
+    AND(sset1, temp4, temp3);
+
+    //!t1 and !t2;
+    NOT(sset1, temp);
+    AND(temp, temp4, temp4);
+
+    EU(temp3, temp4, temp4);
+
+    OR(temp4, temp1, temp1);
+
+    NOT(temp1, temp1);
+
+    copy(temp1, rset);
 
     return;
   }
